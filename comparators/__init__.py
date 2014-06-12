@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.signal import fftconvolve
 
-class SpikeTrainComparator :
+class SpikeTrainComparator(object):
     """
     Abstract class defining an interface for performing active electrode compensation.
     """
