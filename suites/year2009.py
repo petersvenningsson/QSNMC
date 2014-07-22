@@ -2,14 +2,14 @@
 
 from sciunit import TestSuite
 
-import ..tests as tests
+from tests import year2009_a
 
 ##########
 # Suites #
 ##########
 
-a = TestSuite(tests.year2009.a.tests)
-b = TestSuite(tests.year2009.b.tests)
-c = TestSuite(tests.year2009.c.tests)
-d = TestSuite(tests.year2009.d.tests)
+a = TestSuite(year2009_a.tests)
+#b = TestSuite(year2009.b.tests)
+#c = TestSuite(year2009.c.tests)
+#d = TestSuite(year2009.d.tests)
 

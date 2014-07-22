@@ -9,8 +9,8 @@ class SpikeTrainComparator(object):
 
     def __init__(self, T, spks_data, spks_model):
         self.T          = T                 # ms, duration of spike-trains
-        self.spks_data  = spks_data         # a small set of spike-trains (in ms)
-        self.spks_model = spks_model        # a large set of spike-trains (in ms) 
+        self.spks_data  = [x.spike_times for x in spks_data]         # a small set of spike-trains (in ms)
+        self.spks_model = [x.spike_times for x in spks_model]        # a large set of spike-trains (in ms) 
 
     #########################################################################
     # MD KISTLER WINDOW
@@ -78,9 +78,11 @@ class SpikeTrainComparator(object):
             for j in range(i+1, all_spike_train_data_nb) :    
                 tmp += dotProduct(all_spike_train_data[i], all_spike_train_data[j], dotProductArgs, dt=dt)
 
-        dotproduct_dd_unbaiased = tmp/ (all_spike_train_data_nb*(all_spike_train_data_nb-1)/2.0)
-        MDstar = 2.0*dotproduct_dm / (dotproduct_dd_unbaiased + dotproduct_mm)
+        dotproduct_dd_unbiased = tmp/ (all_spike_train_data_nb*(all_spike_train_data_nb-1)/2.0)
+        MDstar = 2.0*dotproduct_dm / (dotproduct_dd_unbiased + dotproduct_mm)
         print "Md* = %0.4f" % (MDstar)
+        if MDstar > 1.0 and MDstar < 1.01: # Unbiased calculation may result in scores > 1.0.  
+            MDstar = 1.0 # So set them to 1.0 if the difference is small.  
         return MDstar
 
     @classmethod
