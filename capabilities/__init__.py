@@ -8,6 +8,7 @@ from sciunit import Capability
 
 CHALLENGE = "2009a"
 PATH = os.path.split(os.path.abspath(__file__))[0]
+full_path = '%s/training/%s' % (PATH,CHALLENGE)
 
 ####################
 # Old capabilities #
@@ -38,15 +39,36 @@ class TrainVoltageOnCurrent(Capability):
 # Functions to implement capabilities #
 #######################################
 
-def load_training_data(pickled=True):
+def get_full_path():
     full_path = '%s/training/%s' % (PATH,CHALLENGE)
+    return full_path
+
+def load_training_data(pickled=True):
+    full_path = get_full_path()
     if pickled:
-        with open('%s/current.pickle' % full_path) as f:
+        current_pickle_path = '%s/current.pickle' % full_path
+        voltage_pickle_path = '%s/voltage_allrep.pickle' % full_path
+        if not (os.path.isfile(current_pickle_path) \
+                and os.path.isfile(voltage_pickle_path)):
+            print "Pickled data not found; pickling from raw data files..."
+            pickle_training_data()
+        print "Loading training data from pickled files..."
+        with open(current_pickle_path) as f:
             current = pickle.load(f)
-        with open('%s/voltage_allrep.pickle' % full_path) as f:
+        with open(voltage_pickle_path) as f:
             voltage = pickle.load(f)
     else:
+        print "Loading training data from raw data files..."
         current = np.loadtxt('%s/current.txt' % full_path)
         voltage = np.loadtxt('%s/voltage_allrep.txt' % full_path)
     return (current,voltage)
 
+def pickle_training_data():
+    full_path = get_full_path()
+    current, voltage = load_training_data(pickled=False)
+    current_pickle_path = '%s/current.pickle' % full_path
+    voltage_pickle_path = '%s/voltage_allrep.pickle' % full_path
+    with open(current_pickle_path,'w') as f:
+        pickle.dump(current,f)
+    with open(voltage_pickle_path,'w') as f:
+        pickle.dump(voltage,f)
