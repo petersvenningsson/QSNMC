@@ -63,6 +63,9 @@ def load_training_data(pickled=True):
         voltage = np.loadtxt('%s/voltage_allrep.txt' % full_path)
     return (current,voltage)
 
+def load_testing_data(pickled=True):
+    pass # Not implemented until security is worked out.  
+
 def pickle_training_data():
     full_path = get_full_path()
     current, voltage = load_training_data(pickled=False)

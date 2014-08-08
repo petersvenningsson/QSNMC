@@ -8,9 +8,9 @@ class SpikeTrainComparator(object):
     """
 
     def __init__(self, T, spks_data, spks_model):
-        self.T          = T                 # ms, duration of spike-trains
-        self.spks_data  = [x.spike_times for x in spks_data]         # a small set of spike-trains (in ms)
-        self.spks_model = [x.spike_times for x in spks_model]        # a large set of spike-trains (in ms) 
+        self.T          = T                                     # ms, duration of spike-trains
+        self.spks_data  = [x.spike_times for x in spks_data]    # a small set of spike-trains (in ms)
+        self.spks_model = [x.spike_times for x in spks_model]   # a large set of spike-trains (in ms) 
 
     #########################################################################
     # MD KISTLER WINDOW
@@ -110,7 +110,7 @@ class SpikeTrainComparator(object):
         average_spike_train = np.zeros(T_i)
         nbSpikeTrains = len(all_s)
 
-        for s in all_s :        
+        for s in all_s :  
             s_i = np.array(s, dtype='double')
             s_i = s_i/dt
             s_i = np.array(s_i, dtype='int')
