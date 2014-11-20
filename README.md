@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/INCF/QSNMC.svg?branch=master)](https://travis-ci.org/INCF/QSNMC)
+
 Quantitative Single Neuron Modeling Competition
 =======
 
