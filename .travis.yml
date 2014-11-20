@@ -1,0 +1,22 @@
+language: python
+python:
+  - "2.7_with_system_site_packages"
+# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+install: 
+  - sudo apt-get install python-numpy python-scipy
+  - pip install neurotools
+  - cd ..
+  - git clone git://github.com/scidash/sciunit.git
+  - pip install -r sciunit/requirements.txt --use-mirrors
+  - git clone git://github.com/scidash/neuronunit.git
+  - export PYTHONPATH=$PYTHONPATH:$PWD:$PWD/sciunit
+  - echo $PYTHONPATH
+  
+# Setting up pre-requirements
+before_script:
+  - pwd
+  - cd QSNMC
+  - ls
+
+# command to run tests, e.g. python setup.py test
+script: python __main__.py
