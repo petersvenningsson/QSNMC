@@ -14,7 +14,7 @@ full_path = '%s/training/%s' % (PATH,CHALLENGE)
 # Old capabilities #
 ####################
 
-from neuronunit.neuroconstruct.capabilities import ProducesSpikes_NC
+from neuronunit.capabilities import ProducesSpikes
 
 ####################
 # New capabilities #
