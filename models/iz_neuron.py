@@ -101,7 +101,7 @@ class IZModel(sciunit.Model, ProducesSpikes):
         x = [_x * self.dt for _x in range(0, len(self.v))]
         plt.plot(x, self.v)
         plt.savefig('predicted_voltage.jpg')
-        raise RuntimeError
+
 
     def get_spike_trains(self, current=None):
         """ Calculates the spike train produced by the external current.
