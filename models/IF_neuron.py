@@ -23,7 +23,7 @@ class LIFModel(sciunit.Model, ProducesSpikes):
         self.v_thresh = v_thresh  # Leak conductance
         self.v_reset = v_reset
         self.v_spike = v_spike
-        super(LIFModel, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def set_external_current(self, current):
         assert type(current) is AnalogSignal, \
@@ -80,4 +80,4 @@ g_leak = 1.0
 v_thresh = -45.0
 v_reset = -70.0
 
-IF_model = LIFModel(C, v_rest, g_leak, v_thresh, v_reset, name='Example')
+IF_model = LIFModel(C, v_rest, g_leak, v_thresh, v_reset, name='Simple leaky integrate-and-fire model')

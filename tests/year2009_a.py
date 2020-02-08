@@ -124,13 +124,5 @@ training_observation = get_observation('training')
 training = SpikeTrainComparisonTest(observation=training_observation,
                                     name="Test on Training Data")
 
-# Test data. Using training data until security is worked out.    
-#testing_observation = get_observation('testing')
-#test = SpikeTrainComparisonTest(observation=observation,
-#                                name="Test on Test Data")
-
-# Two tests, one indicating agreement with training data, and one indicating
-# agreement with test data.  A leaderboard can be constructed from the training 
-# data, but the real leaderboard will use the test data.  
 tests = [training,]#test]
 
