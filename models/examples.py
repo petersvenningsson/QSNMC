@@ -27,7 +27,7 @@ class LIFModel(sciunit.Model,ProducesSpikes):
     def set_external_current(self,current):
         assert type(current) is AnalogSignal, \
             "Current should be a NeuroTools AnalogSignal, not a %s" % type(current)
-        print "Simulating current injection..."
+        print("Simulating current injection...")
         self.i_ext = current.signal
         self.dt = current.dt
         self.steps = len(self.i_ext)

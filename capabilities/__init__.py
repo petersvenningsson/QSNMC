@@ -43,6 +43,7 @@ def get_full_path():
     full_path = '%s/training/%s' % (PATH,CHALLENGE)
     return full_path
 
+
 def load_training_data(pickled=True):
     full_path = get_full_path()
     if pickled:
@@ -50,21 +51,23 @@ def load_training_data(pickled=True):
         voltage_pickle_path = '%s/voltage_allrep.pickle' % full_path
         if not (os.path.isfile(current_pickle_path) \
                 and os.path.isfile(voltage_pickle_path)):
-            print "Pickled data not found; pickling from raw data files..."
+            print("Pickled data not found; pickling from raw data files...")
             pickle_training_data()
-        print "Loading training data from pickled files..."
-        with open(current_pickle_path) as f:
+        print("Loading training data from pickled files...")
+        with open(current_pickle_path,'rb') as f:
             current = pickle.load(f)
-        with open(voltage_pickle_path) as f:
+        with open(voltage_pickle_path,'rb') as f:
             voltage = pickle.load(f)
     else:
-        print "Loading training data from raw data files..."
+        print("Loading training data from raw data files...")
         current = np.loadtxt('%s/current.txt' % full_path)
         voltage = np.loadtxt('%s/voltage_allrep.txt' % full_path)
     return (current,voltage)
 
+
 def load_testing_data(pickled=True):
     pass # Not implemented until security is worked out.  
+
 
 def pickle_training_data():
     full_path = get_full_path()

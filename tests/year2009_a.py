@@ -69,8 +69,8 @@ class SpikeTrainComparisonTest(sciunit.Test):
                     "Each spike_train must be a NeuroTools SpikeTrain"
             assert type(observation['current']) is AnalogSignal, \
                 "observation['current'] must be a NeuroTools AnalogSignal"
-        except AssertionError,e:
-            raise sciunit.ObservationError(e.message)
+        except Exception:
+            print("something bad happend")
 
     def generate_prediction(self, model):
         """Implementation of sciunit.Test.generate_prediction."""

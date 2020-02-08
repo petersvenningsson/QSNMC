@@ -16,7 +16,7 @@ class SpikeTrainComparator(object):
     # MD KISTLER WINDOW
     #########################################################################
     def computeMD_Kistler(self, delta, dt) :        
-        print "Computing Md* - Kistler window (%0.1f ms precision)..." % (delta)
+        print("Computing Md* - Kistler window ({} ms precision)...".format(delta))
         KistlerDotProduct = SpikeTrainComparator.Md_dotProduct_Kistler
         KistlerDotProduct_args = {'delta' : delta }
         return self.computeMD(KistlerDotProduct, KistlerDotProduct_args, dt)
@@ -34,7 +34,7 @@ class SpikeTrainComparator(object):
     # MD RECT WINDOW
     #########################################################################
     def computeMD_Rect(self, delta, dt) :                 
-        print "Computing Md* - Rectangular window (%0.1f ms precision)..." % (delta)
+        print("Computing Md* - Rectangular window ({} ms precision)...".format(delta))
         RectDotProduct = SpikeTrainComparator.Md_dotProduct_Rect
         RectDotProduct_args = {'delta' : delta }
         return self.computeMD(RectDotProduct, RectDotProduct_args, dt)
@@ -80,7 +80,7 @@ class SpikeTrainComparator(object):
 
         dotproduct_dd_unbiased = tmp/ (all_spike_train_data_nb*(all_spike_train_data_nb-1)/2.0)
         MDstar = 2.0*dotproduct_dm / (dotproduct_dd_unbiased + dotproduct_mm)
-        print "Md* = %0.4f" % (MDstar)
+        print("Md* = {}".format(MDstar))
         if MDstar > 1.0 and MDstar < 1.01: # Unbiased calculation may result in scores > 1.0.  
             MDstar = 1.0 # So set them to 1.0 if the difference is small.  
         return MDstar
@@ -162,7 +162,7 @@ class SpikeTrainComparator(object):
         SSE = np.mean( (spks_avg_data_smooth-spks_avg_model_smooth)**2 )
         VAR = np.var(spks_avg_data_smooth)
         pct_variance_explained = (1.0 - SSE/VAR)*100.0
-        print "Percentage of variance explained: %0.1f" % (pct_variance_explained)
+        print("Percentage of variance explained: {}".format(pct_variance_explained))
 
         plt.show()
 
