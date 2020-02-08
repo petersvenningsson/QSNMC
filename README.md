@@ -1,7 +1,6 @@
-[![Build Status](https://travis-ci.org/INCF/QSNMC.svg?branch=master)](https://travis-ci.org/INCF/QSNMC)
-
 Quantitative Single Neuron Modeling Competition
 =======
+Forked on 8/2/2020 with the aim to implement izhikevich neuron as a test model.
 
 Test suite for the quantitative single neuron modeling competition, a sequel to the competitions from past years (Jolivet et al, 2008; Naud et al, 2009).  Using a SciUnit/NeuronUnit backend (http://github.com/scidash/sciunit, http://github.com/scidash/neuronunit).  Training data will be available here; some test data will be embargoed to avoid over-fitting.  
 
