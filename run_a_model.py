@@ -33,7 +33,7 @@ def plot_input_output(time, v, I, title:str, filename:str):
     fig, ax1 = plt.subplots(figsize=(12, 3))
     ax1.plot(time, v, 'tab:blue', label='Output', alpha = 0.4)
     ax1.set_xlabel('time (ms)')
-    fig.suptitle("The score achieved is " + score.raw, fontsize=8)
+    fig.suptitle(title, fontsize=8)
 
     # Plot output
     ax1.set_ylabel('Output mV', color='tab:blue')
