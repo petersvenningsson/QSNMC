@@ -15,14 +15,18 @@ import matplotlib.pyplot as plt
 # CONSTANTS #
 #############
 TMAX = 39.0
+#TMAX = None
 a = 0.02
 b = 0.2
-c = -65
-d = 8
+c = -50
+d = 2
+v_spike = 30
+
+# TODO: Implement peak finding to set correct value v_spike.
 
 class IZModel(sciunit.Model, ProducesSpikes):
     """
-    Model of a Izhikevich neuron. Extends sciunit.Model and ProducesSpikes.
+    Model of a Izhikevich neuron. Extends sciunit.Model and interfaces neuronunit.capabilities.ProducesSpikes.
     """
 
     def __init__(self, a, b, c, d, v_spike=30.0, **kwargs):
@@ -60,6 +64,9 @@ class IZModel(sciunit.Model, ProducesSpikes):
             _v - the proceeding voltage
             _u - the proceeding recovery
             """
+        # The constants 0.04, 5, 140 are the one fits all parameters from Simple Model of Spiking Neurons E. Izhikevich.
+        # These constants are justified when simulating large networks of neurons.
+        # TODO: Parameterise the four constants 0.04, 5, 140.
         _v = v + self.dt * (0.04 * v ** 2 + 5 * v + 140 - u + I)
         _u = u + self.dt * (self.a * (self.b * v - u))
         return _v, _u
@@ -88,19 +95,22 @@ class IZModel(sciunit.Model, ProducesSpikes):
             v_iteration = self.v[t - 1]
             u_iteration = self.u[t - 1]
 
-            if v_iteration > self.v_spike:
-                v_iteration = self.c
-                u_iteration = u_iteration + self.d
-
             v_iteration_next, u_iteration_next = self.euler_forward(u_iteration, v_iteration, i_ext)
 
+            if v_iteration_next > self.v_spike:
+                v_iteration_next = self.c
+                u_iteration_next = u_iteration_next + self.d
             self.v[t] = v_iteration_next
             self.u[t] = u_iteration_next
 
         #### Temporary graphing code ###
-        x = [_x * self.dt for _x in range(0, len(self.v))]
-        plt.plot(x, self.v)
-        plt.savefig('predicted_voltage.jpg')
+        # x = [_x * self.dt for _x in range(0, len(self.v))]
+        # plt.plot(x, self.v)
+        # plt.savefig('predicted_voltage.jpg')
+        # plt.clf()
+        # plt.plot(x, self.u)
+        # plt.savefig('predicted_recovery_u.jpg')
+        # raise RuntimeError
 
 
     def get_spike_trains(self, current=None):
@@ -113,20 +123,16 @@ class IZModel(sciunit.Model, ProducesSpikes):
 
         # For compability with sciunit as many spike trains are generated as there exists ground truth observations
         spike_trains = []
-        for trial in range(13):
-            if current:
-                self.set_external_current(current)
-            self.simulate(T_max=TMAX)
-            voltage_trial = self.v
-            vm_trial = AnalogSignal(voltage_trial, self.dt)
-            spike_train = vm_trial.threshold_detection(0)
-            spike_trains.append(spike_train)
-            if len(spike_trains) >= 13:  # Don't use all the spike trains.
-                break
+        if current:
+            self.set_external_current(current)
+        self.simulate(T_max=TMAX)
+        voltage_trial = self.v
+        vm_trial = AnalogSignal(voltage_trial, self.dt)
+        spike_train = vm_trial.threshold_detection(0)
+        spike_trains = [spike_train for _ in range(0,3)]
         return spike_trains
-
 
 
 # Instantiate a model.
 
-iz_model = IZModel(a,b,c,d, name='Izhikevich')
+iz_model = IZModel(a, b, c, d, v_spike, name='Izhikevich')

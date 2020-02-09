@@ -106,7 +106,9 @@ def get_observation(phase):
     else:
         raise Exception("Phase must be 'training' or 'testing'")
     
-    current_array,voltage_array = load_data() 
+    current_array,voltage_array = load_data()
+    # Dataset specific, trunkade current_array to the length of the voltage_array.
+    current_array = current_array[0:voltage_array.shape[0]]
     spike_trains = []
     
     for col in range(voltage_array.shape[1]):
