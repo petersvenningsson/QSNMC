@@ -25,17 +25,18 @@ dt = model.dt
 
 time = [dt*x for x in range(0,len(I))]
 
-def plot_input_output(time, v, I):
+
+def plot_input_output(time, v, I, title:str, filename:str):
     """ beautification of results.
     """
     # Initialize
     fig, ax1 = plt.subplots(figsize=(12, 3))
-    ax1.plot(time, v, 'tab:blue', label='Output')
+    ax1.plot(time, v, 'tab:blue', label='Output', alpha = 0.4)
     ax1.set_xlabel('time (ms)')
     fig.suptitle("The score achieved is " + score.raw, fontsize=8)
 
     # Plot output
-    ax1.set_ylabel('Output mV', color='tab:blue', alpha = 0.4)
+    ax1.set_ylabel('Output mV', color='tab:blue')
     ax1.tick_params('y', colors='tab:blue')
     ax1.set_ylim(-150, 55)
     ax2 = ax1.twinx()
@@ -49,5 +50,10 @@ def plot_input_output(time, v, I):
     fig.tight_layout()
     ax1.legend(loc=1)
     ax2.legend(loc=3)
-    plt.savefig('summary_of_model_results.jpg')
-plot_input_output(time, v, I)
+    plt.savefig(filename+'.jpg')
+
+# Plot measured data
+plot_input_output(time, test.observation['gold_voltages'][0],I, "measured data", 'measured_voltage')
+
+#Plot model performance
+plot_input_output(time, v,I, "The score achieved is " + score.raw, 'summary_of_model_results')

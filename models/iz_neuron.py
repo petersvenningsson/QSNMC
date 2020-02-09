@@ -103,14 +103,6 @@ class IZModel(sciunit.Model, ProducesSpikes):
             self.v[t] = v_iteration_next
             self.u[t] = u_iteration_next
 
-        #### Temporary graphing code ###
-        # x = [_x * self.dt for _x in range(0, len(self.v))]
-        # plt.plot(x, self.v)
-        # plt.savefig('predicted_voltage.jpg')
-        # plt.clf()
-        # plt.plot(x, self.u)
-        # plt.savefig('predicted_recovery_u.jpg')
-        # raise RuntimeError
 
 
     def get_spike_trains(self, current=None):

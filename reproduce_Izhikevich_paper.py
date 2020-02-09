@@ -59,6 +59,6 @@ def plot_input_output(time, v, I):
     plt.savefig('output_voltage_izen.jpg')
 
 
-plot_input_output(time, IZ_model.v, I)
+#plot_input_output(time, IZ_model.v, I)
 
 print("s")

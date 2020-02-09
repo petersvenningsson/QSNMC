@@ -110,15 +110,18 @@ def get_observation(phase):
     # Dataset specific, trunkade current_array to the length of the voltage_array.
     current_array = current_array[0:voltage_array.shape[0]]
     spike_trains = []
-    
+    gold_voltages = []
+
     for col in range(voltage_array.shape[1]):
         voltage_trial = voltage_array[:,col]
-        vm_trial = AnalogSignal(voltage_trial,dt)  
+        gold_voltages.append(voltage_trial)
+
+        vm_trial = AnalogSignal(voltage_trial,dt)
         spike_train = vm_trial.threshold_detection(0)
         spike_trains.append(spike_train)
     
     current = AnalogSignal(current_array,dt)
-    observation = {'current':current,'spike_trains':spike_trains}
+    observation = {'current':current,'spike_trains':spike_trains, 'gold_voltages': gold_voltages}
 
     return observation
 
